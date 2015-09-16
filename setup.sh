@@ -29,5 +29,10 @@ sudo cp target/victims-client-1.0-SNAPSHOT-standalone.jar /usr/bin
 cd ..
 rm -rf victims-client
 
-printf "Updating database"
+printf "Updating database\n"
 java -jar /usr/bin/victims-client-1.0-SNAPSHOT-standalone.jar --update
+i
+printf "installing python requirements\n"
+pip install -r requirements.txt
+
+print "Done! Quitting! Bye!\n"
