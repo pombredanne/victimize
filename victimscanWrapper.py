@@ -28,23 +28,32 @@ def initiateScan(path_holder):
 		#Scan the pom.xml for CVEs
 		pomScan(path_holder)
 
+	# Error with scan or user params
+	else:
+		print("[-] Error occured with scan or user input")
 
 def java_archivetype(file_to_check):
 	
 	file_in_question = file_to_check
 	
 	# If the file is a compressed file zip, gz, jar, war, ear we are accepting the file
-	if file_by_mime.from_file(file_in_question) == 'application/zip':
+	
+	# Check for type compressed or type jar
+	if (file_by_mime.from_file(file_in_question) == 'application/zip' or
+		file_by_mime.from_file(file_in_question) == 'application/jar'):
 		print("Acceptable MIME Type")
 		return True
+	
 	else:
+		print("Jar file or a binary?! Something's not right with the scanner")
 		return False
 
 def pom_filetype(file_to_check):
 
 	file_in_question = file_to_check
 	# Examining pom.xml seperately - to quickly call dependency-check or maven if needed
-	if file_by_mime.from_file(file_in_question) == 'text/plain':
+	if (file_by_mime.from_file(file_in_question) == 'text/plain' or 
+		file_by_mime.from_file(file_in_question) == 'application/xml'):
 		print("probably a text file or xml file")
 		# From validfile.py -- part of reason -- reuse of a function
 		return validateFile(file_in_question)
